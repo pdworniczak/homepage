@@ -7,6 +7,7 @@ export interface Project {
 export interface Job {
   companyName: string;
   jobTitle: string;
+  description?: string;
   startDate: string;
   endDate: string;
   projects: Entry<Project>[];
@@ -20,7 +21,7 @@ const client = createClient({
   accessToken: accessToken,
 });
 
-export async function fetchEntries() {
+export async function fetchJobEntries() {
   const entries = await client.getEntries<Job>({ content_type: "job" });
   return entries;
 }

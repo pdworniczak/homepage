@@ -1,63 +1,69 @@
 import { ContentTypeCollection, EntryCollection } from "contentful";
 import type { NextPage, GetStaticProps } from "next";
 import Head from "next/head";
-import { fetchEntries, Job } from "../contentful";
-import styles from "../styles/Home.module.css";
+import { Jobs } from "../components/jobs";
+import { fetchJobEntries, Job } from "../contentful";
+import styles from "../styles/Home.module.scss";
 
 interface Content {
   header: string;
+  aboutme: string;
   jobs: EntryCollection<Job>;
 }
 
-const Home: NextPage<Content> = ({ header, jobs }) => {
+const Home: NextPage<Content> = ({ header, jobs, aboutme }) => {
   return (
-    <div className={styles.container}>
+    <main className={styles.main}>
       <Head>
-        <title>Portfolio</title>
+        <title>Homepage</title>
         <meta name="description" content="personal home page" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <header>
-        <h1>{header}</h1>
-      </header>
-
-      <main className={styles.main}>
-        <section>
-          {jobs.items.map((job, index) => (
-            <article key={index}>
-              {/* <pre>{JSON.stringify(job.fields, null, 2)}</pre> */}
-              <header>
-                <h2>{job.fields.companyName}</h2>
-              </header>
-              <article>
-                <h3>{job.fields.jobTitle}</h3>
-                <div>
-                  <span>{job.fields.startDate}</span>
-                  <span>{job.fields.endDate}</span>
-                </div>
-              </article>
-              <section>
-                {job.fields.projects.map((project, index) => (
-                  <article key={index}>{project.fields.name}</article>
-                ))}
-              </section>
-            </article>
-          ))}
+      <article className={styles.paper}>
+        <header>
+          <h1>{header}</h1>
+        </header>
+        <section>{aboutme}</section>
+        <section className={styles.jobs}>
+          <header>
+            <h2>Jobs</h2>
+          </header>
+          {jobs.items
+            .sort((a, b) =>
+              a.fields.startDate > b.fields.startDate
+                ? -1
+                : a.fields.startDate < b.fields.startDate
+                ? 1
+                : 0
+            )
+            .map((job, index) => (
+              <Jobs job={job.fields} key={index} />
+            ))}
         </section>
-      </main>
+      </article>
 
-      <footer className={styles.footer}>footer</footer>
-    </div>
+      <footer></footer>
+    </main>
   );
 };
 
 export const getStaticProps: GetStaticProps<Content> = async () => {
-  const jobs = await fetchEntries();
+  const jobs = await fetchJobEntries();
 
   return {
     props: {
-      header: "Portfolio",
+      header: "Homepage",
+      aboutme:
+        "Hi! Welcome to my personal page. My name is Paweł and I'm a developer for around 11years. \
+        During my career, I had opportunity to work with many different technologies. I have started \
+        my journey with Java, but after a few years I have switched to JavaScript and currently, \
+        I'm mainly working with Typescript and from time to time with Python. I would like to learn Go \
+        and/or Rust and currently, I'm trying to do that in my free time. I have quite vast experience \
+        in different development domains, from the backend in Java and JS/TS by scripting with Python. \
+        Currently, I'm mainly focusing on frontend with React. You could find more details about my \
+        career below in the \"jobs\" section. Thank you for visiting my personal website. \
+        PS. It's super ugly for now, but It should improve over the time.",
       jobs,
     },
   };

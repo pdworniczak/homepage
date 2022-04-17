@@ -1,0 +1,22 @@
+.container {
+  padding: 20px;
+  background: #bbb;
+  border: solid 4px #333;
+  border-radius: 20px;
+
+  section {
+    margin-bottom: 20px;
+  }
+}
+
+.title {
+  background-color: #ccc;
+  border: solid 4px #ccc;
+  border-radius: calc(1em + 8px);
+}
+
+.projects {
+  > * {
+    margin-bottom: 20px;
+  }
+}
