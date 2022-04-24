@@ -18,6 +18,20 @@ const Home: NextPage<Content> = ({ header, jobs, aboutme }) => {
         <title>Homepage</title>
         <meta name="description" content="personal home page" />
         <link rel="icon" href="/favicon.ico" />
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-P5342HRQQJ"
+        ></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-P5342HRQQJ');
+            `,
+          }}
+        />
       </Head>
 
       <article className={styles.paper}>
