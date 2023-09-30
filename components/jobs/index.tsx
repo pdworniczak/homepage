@@ -2,6 +2,7 @@ import { FC } from "react";
 import { Job } from "../../contentful";
 import styles from "./jobs.module.scss";
 import dayjs from 'dayjs';
+import { Project } from "./Project";
 
 export const Jobs: FC<{ job: Job }> = ({ job }) => (
   <article className={styles.container}>
@@ -20,12 +21,7 @@ export const Jobs: FC<{ job: Job }> = ({ job }) => (
         {job.projects && (
           <>
             {job.projects.map(({ fields: project }, index) => (
-              <article className={styles.title} key={index}>
-                {project.name}
-                <section>
-                  {JSON.stringify(project, null, 2)}
-                </section>
-              </article>
+              <Project key={index} project={project} />
             ))}
           </>
         )}
