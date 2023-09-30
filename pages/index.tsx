@@ -1,14 +1,15 @@
-import { ContentTypeCollection, EntryCollection } from "contentful";
+import { Entry } from "contentful";
 import type { NextPage, GetStaticProps } from "next";
 import Head from "next/head";
 import { Jobs } from "../components/jobs";
 import { fetchJobEntries, Job } from "../contentful";
 import styles from "../styles/Home.module.scss";
+import dayjs from 'dayjs'
 
 interface Content {
   header: string;
   aboutme: string;
-  jobs: EntryCollection<Job>;
+  jobs: Array<Entry<Job>>;
 }
 
 const Home: NextPage<Content> = ({ header, jobs, aboutme }) => {
@@ -43,17 +44,9 @@ const Home: NextPage<Content> = ({ header, jobs, aboutme }) => {
           <header>
             <h2>Jobs</h2>
           </header>
-          {jobs.items
-            .sort((a, b) =>
-              a.fields.startDate > b.fields.startDate
-                ? -1
-                : a.fields.startDate < b.fields.startDate
-                ? 1
-                : 0
-            )
-            .map((job, index) => (
-              <Jobs job={job.fields} key={index} />
-            ))}
+          {jobs.map((job, index) => (
+            <Jobs job={job.fields} key={index} />
+          ))}
         </section>
       </article>
 
@@ -63,13 +56,22 @@ const Home: NextPage<Content> = ({ header, jobs, aboutme }) => {
 };
 
 export const getStaticProps: GetStaticProps<Content> = async () => {
-  const jobs = await fetchJobEntries();
+  const { items: jobs } = await fetchJobEntries();
+  const sortedJobs = jobs.sort((a, b) =>
+    a.fields.startDate > b.fields.startDate
+      ? -1
+      : a.fields.startDate < b.fields.startDate
+        ? 1
+        : 0
+  )
+  const firstJobStartAt = dayjs(Math.min(...jobs.map(job => dayjs(job.fields.startDate).valueOf())))
+
 
   return {
     props: {
       header: "Homepage",
       aboutme:
-        "Hi! Welcome to my personal page. My name is Paweł and I'm a developer for around 11years. \
+        `Hi! Welcome to my personal page. My name is Paweł and I'm a developer for around ${dayjs().diff(firstJobStartAt, 'years')} years. \
         During my career, I had opportunity to work with many different technologies. I have started \
         my journey with Java, but after a few years I have switched to JavaScript and currently, \
         I'm mainly working with Typescript and from time to time with Python. I would like to learn Go \
@@ -77,8 +79,8 @@ export const getStaticProps: GetStaticProps<Content> = async () => {
         in different development domains, from the backend in Java and JS/TS by scripting with Python. \
         Currently, I'm mainly focusing on frontend with React. You could find more details about my \
         career below in the \"jobs\" section. Thank you for visiting my personal website. \
-        PS. It's super ugly for now, but It should improve over the time.",
-      jobs,
+        PS. It's super ugly for now, but It should improve over the time.`,
+      jobs: sortedJobs,
     },
   };
 };
