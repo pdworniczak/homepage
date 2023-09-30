@@ -2,6 +2,9 @@ import { createClient, Entry } from "contentful";
 
 export interface Project {
   name: string;
+  description: string;
+  technologies: string[]
+  tools: string[]
 }
 
 export interface Job {

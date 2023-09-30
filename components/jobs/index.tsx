@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Job } from "../../contentful";
-import { formatDate } from "../../utils";
 import styles from "./jobs.module.scss";
+import dayjs from 'dayjs';
 
 export const Jobs: FC<{ job: Job }> = ({ job }) => (
   <article className={styles.container}>
@@ -11,17 +11,20 @@ export const Jobs: FC<{ job: Job }> = ({ job }) => (
     </header>
     <article>
       <section>
-        <span>{formatDate(job.startDate)}</span>
+        <span>{dayjs(job.startDate).format('YYYY MMM')}</span>
         {" - "}
-        <span>{formatDate(job.endDate)}</span>
+        <span>{dayjs(job.endDate).format('YYYY MMM')}</span>
       </section>
       <section>{job.description}</section>
       <section className={styles.projects}>
         {job.projects && (
           <>
-            {job.projects.map((project, index) => (
+            {job.projects.map(({ fields: project }, index) => (
               <article className={styles.title} key={index}>
-                {project.fields.name}
+                {project.name}
+                <section>
+                  {JSON.stringify(project, null, 2)}
+                </section>
               </article>
             ))}
           </>
