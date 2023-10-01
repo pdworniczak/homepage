@@ -10,7 +10,7 @@ export const Project = ({ project, key }: { project: ProjectType, key: string })
             {project.description}
         </section>
         <section>
-            <header>Tools and technologies:</header>{(project.technologies ? project.technologies.map(technology => <span>{technology} </span>) : '')} {(project.tools ? project.tools.map(tool => <span>{tool} </span>) : '')}
+            <header>Tools and technologies:</header>{(project.technologies ? project.technologies.map((technology, index) => <span key={`tech_${index}`}>{technology} </span>) : '')} {(project.tools ? project.tools.map((tool, index) => <span key={`tool_${index}`}>{tool} </span>) : '')}
         </section>
     </article>
 }
