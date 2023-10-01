@@ -21,7 +21,7 @@ export const Jobs: FC<{ job: Job }> = ({ job }) => (
         {job.projects && (
           <>
             {job.projects.map(({ fields: project }, index) => (
-              <Project key={index} project={project} />
+              <Project key={`${index}_${project.name}`} project={project} />
             ))}
           </>
         )}
