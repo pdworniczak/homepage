@@ -5,6 +5,7 @@ import { Jobs } from "../components/jobs";
 import { fetchJobEntries, Job } from "../contentful";
 import styles from "../styles/Home.module.scss";
 import dayjs from 'dayjs'
+import Script from 'next/script'
 
 interface Content {
   header: string;
@@ -19,11 +20,11 @@ const Home: NextPage<Content> = ({ header, jobs, aboutme }) => {
         <title>Homepage</title>
         <meta name="description" content="personal home page" />
         <link rel="icon" href="/favicon.ico" />
-        <script
+        <Script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-P5342HRQQJ"
-        ></script>
-        <script
+        />
+        <Script
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];
