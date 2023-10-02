@@ -1,8 +1,8 @@
 import { Project as ProjectType } from "../../contentful";
 import styles from "./jobs.module.scss";
 
-export const Project = ({ project, key }: { project: ProjectType, key: string }) => {
-    return <article className={styles.title} key={key}>
+export const Project = ({ project }: { project: ProjectType }) => {
+    return <article className={styles.title}>
         <header>
             {project.name}
         </header>
