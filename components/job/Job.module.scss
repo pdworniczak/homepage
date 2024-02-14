@@ -1,4 +1,5 @@
 .container {
+  composes: article from '../../styles/Global.module.scss';
   padding: 20px;
   background: #bbb;
   border: solid 4px #333;
@@ -16,7 +17,7 @@
 }
 
 .projects {
-  > * {
+  >* {
     margin-bottom: 20px;
   }
 }

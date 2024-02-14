@@ -2,19 +2,26 @@ $shadow: rgba(170, 170, 170, 0.5);
 
 .main {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
-  padding: 50px 0;
-}
-
-.paper {
+  margin: auto;
   max-width: 800px;
   box-shadow: 10px 10px 10px $shadow, -5px -5px 5px $shadow;
-  padding: 30px;
+  padding: 0 30px 30px;
+
+  nav {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1em;
+    position: sticky;
+    top: 0;
+    background-color: burlywood;
+    padding: 1rem;
+  }
 }
 
 .jobs {
-  > * {
+  >* {
     margin-bottom: 20px;
   }
 }
