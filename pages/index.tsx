@@ -4,16 +4,16 @@ import { FC } from "react";
 import Head from "next/head";
 import { Job } from "../components/job";
 import { fetchSectionsEntries } from "../contentful";
-import { TypeJob, TypeSection } from "../contentful/types";
+import { TypeSectionsFields, TypeJob } from "../contentful/types";
 import styles from "../styles/Home.module.scss";
 import Script from 'next/script'
-import { Entry, EntryCollection, RichTextContent } from "contentful";
-import jsPDF from "jspdf";
+import { Entry, EntryCollection, EntryFields } from "contentful";
+// import jsPDF from "jspdf";
 
 
 
 interface Content {
-  sections: EntryCollection<Sections>
+  sections: EntryCollection<TypeSectionsFields>
 }
 const NAVIGATION_MAPPING = {
   jobs: "Work history",
@@ -31,37 +31,39 @@ const Home: NextPage<Content> = ({ sections }) => {
         <title>Homepage</title>
         <meta name="description" content="personal home page" />
         <link rel="icon" href="/favicon.ico" />
-        <Script
-          async
-          src="https://www.googletagmanager.com/gtag/js?id=G-P5342HRQQJ"
-        />
-        <Script
-          dangerouslySetInnerHTML={{
-            __html: `
+      </Head>
+      <Script
+        id="gtm"
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=G-P5342HRQQJ"
+      />
+      <Script
+        id="dataLayer"
+        dangerouslySetInnerHTML={{
+          __html: `
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
               gtag('config', 'G-P5342HRQQJ');
             `,
-          }}
-        />
-      </Head>
+        }}
+      />
       <main className={styles.main}>
         <header>
 
           <nav>
             {
-              sections.items[0].fields.section.map(({ fields: { name } }) => (
-                <a href={`#${name}`} >{NAVIGATION_MAPPING[name as NavMappingKey]}</a>
+              sections.items[0].fields.section?.map(({ fields: { name } }, index) => (
+                <a key={index} href={`#${name}`} >{NAVIGATION_MAPPING[name as NavMappingKey]}</a>
               ))
             }
           </nav>
         </header>
 
         {
-          sections.items[0].fields.section.map(({ fields: { name, title, description, article } }) => {
+          sections.items[0].fields.section?.map(({ fields: { name, title, description, article } }, index) => {
             return (
-              <Section data={{ name, title, description, article }} />
+              <Section key={index} data={{ name, title, description, article }} />
             )
           })
         }
@@ -91,8 +93,8 @@ interface SectionProps {
   data: {
     name: string;
     title?: string;
-    description?: RichTextContent;
-    article?: Entry<undefined>[] | Entry<JobType>[]
+    description?: EntryFields.RichText;
+    article?: Entry<undefined>[] | TypeJob[]
   }
 }
 

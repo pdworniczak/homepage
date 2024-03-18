@@ -1,10 +1,10 @@
 import { FC, useRef } from "react";
-import { Job as JobType } from "../../contentful";
 import styles from "./Job.module.scss";
 import dayjs from 'dayjs';
 import { Project } from "./Project";
+import { TypeJobFields } from "../../contentful/types";
 
-export const Job: FC<{ job: JobType }> = ({ job }) => {
+export const Job: FC<{ job: TypeJobFields }> = ({ job }) => {
   const articleRef = useRef<HTMLDivElement>(null);
 
   return (
@@ -18,7 +18,7 @@ export const Job: FC<{ job: JobType }> = ({ job }) => {
         <section>
           <span>{dayjs(job.startDate).format('YYYY MMM')}</span>
           {" - "}
-          <span>{dayjs(job.endDate).format('YYYY MMM')}</span>
+          <span>{job.endDate ? dayjs(job.endDate).format('YYYY MMM') : 'present'}</span>
         </section>
         {job.description ? <section>{job.description}</section> : null}
         <section>

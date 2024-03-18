@@ -1,7 +1,8 @@
-import { Project as ProjectType } from "../../contentful";
+
+import { TypeProjectFields } from "../../contentful/types";
 import styles from "./Job.module.scss";
 
-export const Project = ({ project }: { project: ProjectType }) => {
+export const Project = ({ project }: { project: TypeProjectFields }) => {
     return <article className={styles.project}>
         <header>
             <h5>{project.name}</h5>

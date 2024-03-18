@@ -2,9 +2,9 @@ import type { Entry, EntryFields } from "contentful";
 import type { TypeJobFields } from "./TypeJob";
 
 export interface TypeSectionFields {
-    name?: EntryFields.Symbol;
+    name: EntryFields.Symbol;
     title?: EntryFields.Symbol;
-    description?: EntryFields.RichText;
+    description: EntryFields.RichText;
     article?: Entry<TypeJobFields>[];
 }
 
