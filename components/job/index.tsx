@@ -16,9 +16,9 @@ export const Job: FC<{ job: TypeJobFields }> = ({ job }) => {
       </header>
       <article>
         <section>
-          <span>{dayjs(job.startDate).format('YYYY MMM')}</span>
-          {" - "}
           <span>{job.endDate ? dayjs(job.endDate).format('YYYY MMM') : 'present'}</span>
+          {" - "}
+          <span>{dayjs(job.startDate).format('YYYY MMM')}</span>
         </section>
         {job.description ? <section>{job.description}</section> : null}
         <section>

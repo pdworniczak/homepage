@@ -32,6 +32,12 @@
 }
 
 .project {
+  >header {
+    h5 {
+      margin-top: 0;
+    }
+  }
+
   >section:first-of-type {
     margin-bottom: 1em;
   }
