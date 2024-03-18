@@ -1,23 +1,47 @@
-.container {
-  composes: article from '../../styles/Global.module.scss';
-  padding: 20px;
-  background: #bbb;
-  border: solid 4px #333;
-  border-radius: 20px;
+.job {
+  display: flex;
+  flex-direction: column;
 
-  section {
-    margin-bottom: 20px;
+  >header {
+    display: flex;
+    gap: 2em;
+
+    img {
+      align-self: center;
+    }
+  }
+
+  >article {
+    display: flex;
+    flex-direction: row;
+    gap: 2em;
+
+    >section:first-of-type {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      width: 3em;
+
+      >span {
+        transform: rotate(-15deg);
+        font-style: italic;
+      }
+    }
   }
 }
 
-.title {
-  background-color: #ccc;
-  border: solid 4px #ccc;
-  border-radius: calc(1em + 8px);
-}
+.project {
+  >section:first-of-type {
+    margin-bottom: 1em;
+  }
 
-.projects {
-  >* {
-    margin-bottom: 20px;
+  section {
+    span {
+      display: flex;
+      font-size: .9em;
+      font-style: italic;
+      gap: .5em;
+    }
   }
 }

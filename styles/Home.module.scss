@@ -5,23 +5,40 @@ $shadow: rgba(170, 170, 170, 0.5);
   flex-direction: column;
   justify-content: center;
   margin: auto;
-  max-width: 800px;
+  max-width: 794px;
   box-shadow: 10px 10px 10px $shadow, -5px -5px 5px $shadow;
-  padding: 0 30px 30px;
 
-  nav {
+  >header {
     display: flex;
     justify-content: flex-end;
     gap: 1em;
     position: sticky;
     top: 0;
-    background-color: burlywood;
+    background-color: rgb(115, 171, 214);
+    border-bottom: solid 1em rgb(95, 152, 196);
     padding: 1rem;
-  }
-}
+    z-index: 1;
 
-.jobs {
-  >* {
-    margin-bottom: 20px;
+    nav {
+      display: flex;
+      gap: 1em;
+    }
+  }
+
+  >section {
+    scroll-margin-top: 4em;
+    scroll-behavior: smooth;
+    padding: 2em;
+  }
+
+  aside {
+    float: right;
+    padding: 1em;
+
+    img {
+      height: 10em;
+      border: solid 1px rgb(115, 171, 214);
+      border-radius: 100%;
+    }
   }
 }

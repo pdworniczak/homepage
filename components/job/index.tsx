@@ -3,18 +3,16 @@ import { Job as JobType } from "../../contentful";
 import styles from "./Job.module.scss";
 import dayjs from 'dayjs';
 import { Project } from "./Project";
-import { useElementOnTop } from "../../hooks/useElementOnTop";
 
 export const Job: FC<{ job: JobType }> = ({ job }) => {
   const articleRef = useRef<HTMLDivElement>(null);
 
-  useElementOnTop(articleRef.current);
-
   return (
-    <article ref={articleRef} className={styles.container}>
+    <article ref={articleRef} className={styles.job}>
       <header>
-        <h3>{job.companyName}</h3>
-        <h4>{job.jobTitle}</h4>
+        <img src="/icons/laptop-svgrepo-com.svg" width={26} height={26} />
+        <h3>{job.jobTitle}</h3>
+        <h4>{job.companyName}</h4>
       </header>
       <article>
         <section>
@@ -22,8 +20,8 @@ export const Job: FC<{ job: JobType }> = ({ job }) => {
           {" - "}
           <span>{dayjs(job.endDate).format('YYYY MMM')}</span>
         </section>
-        <section>{job.description}</section>
-        <section className={styles.projects}>
+        {job.description ? <section>{job.description}</section> : null}
+        <section>
           {job.projects && (
             <>
               {job.projects.map(({ fields: project }, index) => (
