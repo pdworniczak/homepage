@@ -1,14 +1,15 @@
-import type { Entry, EntryFields } from "contentful";
-import type { TypeProjectFields } from "./TypeProject";
+import type { ChainModifiers, Entry, EntryFieldTypes, EntrySkeletonType, LocaleCode } from "contentful";
+import type { TypeProjectSkeleton } from "./TypeProject";
 
 export interface TypeJobFields {
-    companyName: EntryFields.Symbol;
-    jobTitle: EntryFields.Symbol;
-    startDate: EntryFields.Date;
-    endDate?: EntryFields.Date;
-    description?: EntryFields.Symbol;
-    projects?: Entry<TypeProjectFields>[];
-    city?: EntryFields.Symbol;
+    companyName: EntryFieldTypes.Symbol;
+    jobTitle: EntryFieldTypes.Symbol;
+    startDate: EntryFieldTypes.Date;
+    endDate?: EntryFieldTypes.Date;
+    description?: EntryFieldTypes.Symbol;
+    projects?: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<TypeProjectSkeleton>>;
+    city?: EntryFieldTypes.Symbol;
 }
 
-export type TypeJob = Entry<TypeJobFields>;
+export type TypeJobSkeleton = EntrySkeletonType<TypeJobFields, "job">;
+export type TypeJob<Modifiers extends ChainModifiers, Locales extends LocaleCode> = Entry<TypeJobSkeleton, Modifiers, Locales>;

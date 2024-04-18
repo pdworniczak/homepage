@@ -1,5 +1,5 @@
 import { createClient } from "contentful";
-import { TypeJobFields, TypeSectionsFields } from "./types";
+import { TypeJobSkeleton, TypeSectionsSkeleton } from "./types";
 
 
 const space = process.env.CONTENTFUL_SPACE_ID || "";
@@ -11,12 +11,12 @@ const client = createClient({
 });
 
 export async function fetchJobEntries() {
-    const entries = await client.getEntries<TypeJobFields>({ content_type: "job" });
+    const entries = await client.withoutUnresolvableLinks.getEntries<TypeJobSkeleton>({ content_type: "job" });
     return entries;
 }
 
 export async function fetchSectionsEntries() {
-    const entries = await client.getEntries<TypeSectionsFields>({ content_type: 'sections', include: 10, order: '' });
+    const entries = await client.getEntries<TypeSectionsSkeleton>({ include: 10 });
     return entries;
 }
 

@@ -1,8 +1,9 @@
-import type { Entry } from "contentful";
-import type { TypeSectionFields } from "./TypeSection";
+import type { ChainModifiers, Entry, EntryFieldTypes, EntrySkeletonType, LocaleCode } from "contentful";
+import type { TypeSectionSkeleton } from "./TypeSection";
 
 export interface TypeSectionsFields {
-    section?: Entry<TypeSectionFields>[];
+    section?: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<TypeSectionSkeleton>>;
 }
 
-export type TypeSections = Entry<TypeSectionsFields>;
+export type TypeSectionsSkeleton = EntrySkeletonType<TypeSectionsFields, "sections">;
+export type TypeSections<Modifiers extends ChainModifiers, Locales extends LocaleCode> = Entry<TypeSectionsSkeleton, Modifiers, Locales>;

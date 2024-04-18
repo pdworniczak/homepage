@@ -1,11 +1,12 @@
-import type { Entry, EntryFields } from "contentful";
+import type { ChainModifiers, Entry, EntryFieldTypes, EntrySkeletonType, LocaleCode } from "contentful";
 
 export interface TypeProjectFields {
-    name?: EntryFields.Symbol;
-    description?: EntryFields.Symbol;
-    technologies?: EntryFields.Symbol[];
-    tools?: EntryFields.Symbol[];
-    company?: EntryFields.Symbol;
+    name?: EntryFieldTypes.Symbol;
+    description?: EntryFieldTypes.Symbol;
+    technologies?: EntryFieldTypes.Array<EntryFieldTypes.Symbol>;
+    tools?: EntryFieldTypes.Array<EntryFieldTypes.Symbol>;
+    company?: EntryFieldTypes.Symbol;
 }
 
-export type TypeProject = Entry<TypeProjectFields>;
+export type TypeProjectSkeleton = EntrySkeletonType<TypeProjectFields, "project">;
+export type TypeProject<Modifiers extends ChainModifiers, Locales extends LocaleCode> = Entry<TypeProjectSkeleton, Modifiers, Locales>;
