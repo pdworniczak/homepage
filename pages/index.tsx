@@ -4,9 +4,10 @@ import { FC } from "react";
 import Head from "next/head";
 import { Job } from "../components/job";
 import { fetchSectionsEntries } from "../contentful";
-import { TypeSectionSkeleton, TypeSectionsSkeleton } from "../contentful/types";
+import { TypeJobSkeleton, TypeProjectSkeleton, TypeSectionFields, TypeSectionSkeleton, TypeSectionsSkeleton } from "../contentful/types";
 import styles from "../styles/Home.module.scss";
 import Script from 'next/script'
+import { Text } from '@contentful/rich-text-types';
 import { Entry, EntryCollection } from "contentful";
 import { sectionTypeGuard } from "../contentful/typeGuards";
 // import jsPDF from "jspdf";
@@ -14,7 +15,9 @@ import { sectionTypeGuard } from "../contentful/typeGuards";
 
 
 interface Content {
-  sections: EntryCollection<TypeSectionsSkeleton, "WITHOUT_UNRESOLVABLE_LINKS", string>
+  sections: TypeSectionSkeleton[],
+  jobs: TypeJobSkeleton[],
+  projects: TypeProjectSkeleton[]
 }
 const NAVIGATION_MAPPING = {
   jobs: "Work history",
@@ -23,9 +26,7 @@ const NAVIGATION_MAPPING = {
 
 type NavMappingKey = keyof typeof NAVIGATION_MAPPING;
 
-const Home: NextPage<Content> = ({ sections }) => {
-
-  console.log(JSON.stringify(sections.items[1].fields, null, 2))
+const Home: NextPage<Content> = ({ sections, jobs, projects }) => {
 
   return (
     <>
@@ -54,27 +55,23 @@ const Home: NextPage<Content> = ({ sections }) => {
         <header>
           <nav>
             {
-              sections.items[0].fields.section?.map((section, index) => {
-                if (sectionTypeGuard(section)) {
-                  const { fields: { name } } = section;
-                  return (
-
-                    < a key={index} href={`#${name}`} >{NAVIGATION_MAPPING[name as NavMappingKey]}</a>
-                  )
-                }
+              sections.map(({ fields: { name } }, index) => {
+                return (
+                  < a key={index} href={`#${name}`} >{NAVIGATION_MAPPING[name.toString() as NavMappingKey]}</a>
+                )
               })
             }
           </nav>
         </header>
 
         {
-          sections.items[0].fields.section?.map((section, index) => {
-            if (sectionTypeGuard(section)) {
+          sections.map((section, index) => {
+            // if (sectionTypeGuard(section)) {
 
-              return (
-                <Section key={index} section={section} />
-              )
-            }
+            return (
+              <Section key={index} section={section.fields} />
+            )
+            // }
           })
         }
 
@@ -100,27 +97,28 @@ const Home: NextPage<Content> = ({ sections }) => {
 };
 
 interface SectionProps {
-  section: Entry<TypeSectionSkeleton, "WITHOUT_UNRESOLVABLE_LINKS", string>
+  section: TypeSectionFields
 }
 
-const Section: FC<SectionProps> = ({ section: { fields: { description, name, title, article } } }) => {
+const Section: FC<SectionProps> = ({ section: { name, title, description, article } }) => {
 
   return (
-    <section id={name.values}>
+    <section id={name}>
       <article>
-        {name.values === 'aboutme' ?
+        {name === 'aboutme' ?
           <aside>
             <img src="/images/pd.jpg" alt="Pawel Dworniczak" />
           </aside> : null
         }
         {title &&
           <header><h2>{title}</h2>
-            {description?.content?.map(({ content }) => content ? <span>{content[0].value}</span> : "")}
+            {description.content?.map(({ content }) => content ? <span>{(content[0] as Text).value}</span> : "")}
           </header>
         }
+        {/* <pre>article</pre> */}
         {article?.
           sort(({ fields: jobA }, { fields: jobB }) => jobA && jobB && jobA.startDate > jobB.startDate ? -1 : 1).
-          map(({ fields: job }) => { return job ? <Job job={job} /> : null })}
+          map(({ fields: jobEntry }) => { return jobEntry ? <Job job={jobEntry} /> : null })}
       </article>
     </section>)
 }
@@ -140,11 +138,11 @@ const cslsa = (cslsa: ClassNameType[]) => {
 }
 
 export const getStaticProps = (async () => {
-  const sections = await fetchSectionsEntries();
+  const entrySections = await fetchSectionsEntries();
 
   return {
     props: {
-      sections,
+      sections: entrySections.items,
     },
   };
 });

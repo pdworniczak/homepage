@@ -1,12 +1,13 @@
-import type { ChainModifiers, Entry, EntryFieldTypes, EntrySkeletonType, LocaleCode, EntryFields } from "contentful";
-import type { TypeJobSkeleton } from "./TypeJob";
+import type { Entry, EntryFields, EntrySkeletonType } from "contentful";
+import type { TypeJobFields, TypeJobSkeleton } from "./TypeJob";
 
 export interface TypeSectionFields {
-    name: EntryFieldTypes.Symbol;
-    title?: EntryFieldTypes.Symbol;
+    name: EntryFields.Symbol;
+    title?: EntryFields.Symbol;
     description: EntryFields.RichText;
-    article?: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<TypeJobSkeleton>>;
+    article?: TypeJobSkeleton[];
 }
 
-export type TypeSectionSkeleton = EntrySkeletonType<TypeSectionFields, "section">;
-export type TypeSection<Modifiers extends ChainModifiers, Locales extends LocaleCode> = Entry<TypeSectionSkeleton, Modifiers, Locales>;
+export type TypeSectionSkeleton = EntrySkeletonType<TypeSectionFields, 'section'>;
+
+export type TypeSection = Entry<TypeSectionSkeleton>;

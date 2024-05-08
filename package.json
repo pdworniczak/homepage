@@ -7,22 +7,25 @@
     "build": "next build && next export",
     "start": "next start",
     "lint": "next lint",
-    "contentful-typescript-codegen": "contentful-typescript-codegen --output @types/generated/contentful.d.ts"
+    "contentful-typescript-codegen": "contentful-typescript-codegen --output contentful/contentful.d.ts"
   },
   "dependencies": {
     "@sentry/nextjs": "^7.107.0",
     "contentful": "^10.8.3",
     "dayjs": "^1.11.10",
     "jspdf": "^2.5.1",
-    "next": "14.2.2",
+    "next": "14.2.3",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "ts-node": "^10.9.2"
   },
   "devDependencies": {
     "@types/node": "20.12.7",
     "@types/react": "18.2.79",
     "@types/react-dom": "18.2.25",
     "cf-content-types-generator": "^2.15.0",
+    "contentful-typescript-codegen": "^3.4.0",
+    "dotenv": "^16.4.5",
     "eslint": "9.0.0",
     "eslint-config-next": "14.2.2",
     "eslint-config-prettier": "^9.1.0",
