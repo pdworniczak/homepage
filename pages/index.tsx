@@ -1,33 +1,26 @@
-
 import type { NextPage } from "next";
 import { FC } from "react";
 import Head from "next/head";
-import { Job } from "../components/job";
+import { Job } from "../components/Job";
 import { fetchSectionsEntries } from "../contentful";
-import { TypeJobSkeleton, TypeProjectSkeleton, TypeSectionFields, TypeSectionSkeleton, TypeSectionsSkeleton } from "../contentful/types";
+import { TypeSectionFields, TypeSectionSkeleton } from "../contentful/types";
 import styles from "../styles/Home.module.scss";
-import Script from 'next/script'
-import { Text } from '@contentful/rich-text-types';
-import { Entry, EntryCollection } from "contentful";
-import { sectionTypeGuard } from "../contentful/typeGuards";
+import Script from "next/script";
+import { Text } from "@contentful/rich-text-types";
+
 // import jsPDF from "jspdf";
 
-
-
 interface Content {
-  sections: TypeSectionSkeleton[],
-  jobs: TypeJobSkeleton[],
-  projects: TypeProjectSkeleton[]
+  sections: TypeSectionSkeleton[];
 }
-const NAVIGATION_MAPPING = {
+const SECTIONS_NAME = {
   jobs: "Work history",
-  aboutme: "About me"
-}
+  aboutme: "About me",
+};
 
-type NavMappingKey = keyof typeof NAVIGATION_MAPPING;
+type NavMappingKey = keyof typeof SECTIONS_NAME;
 
-const Home: NextPage<Content> = ({ sections, jobs, projects }) => {
-
+const Home: NextPage<Content> = ({ sections }) => {
   return (
     <>
       <Head>
@@ -54,26 +47,22 @@ const Home: NextPage<Content> = ({ sections, jobs, projects }) => {
       <main className={styles.main}>
         <header>
           <nav>
-            {
-              sections.map(({ fields: { name } }, index) => {
-                return (
-                  < a key={index} href={`#${name}`} >{NAVIGATION_MAPPING[name.toString() as NavMappingKey]}</a>
-                )
-              })
-            }
+            {sections.map(({ fields: { name } }, index) => {
+              return (
+                <a key={index} href={`#${name}`}>
+                  {SECTIONS_NAME[name.toString() as NavMappingKey]}
+                </a>
+              );
+            })}
           </nav>
         </header>
 
-        {
-          sections.map((section, index) => {
-            // if (sectionTypeGuard(section)) {
+        {sections.map((section, index) => {
+          // if (sectionTypeGuard(section)) {
 
-            return (
-              <Section key={index} section={section.fields} />
-            )
-            // }
-          })
-        }
+          return <Section key={index} section={section.fields} />;
+          // }
+        })}
 
         <footer>
           {/* <button onClick={() => {
@@ -92,52 +81,70 @@ const Home: NextPage<Content> = ({ sections, jobs, projects }) => {
 
           }}>Gen PDF</button> */}
         </footer>
-      </main ></>
+      </main>
+    </>
   );
 };
 
 interface SectionProps {
-  section: TypeSectionFields
+  section: TypeSectionFields;
 }
 
-const Section: FC<SectionProps> = ({ section: { name, title, description, article } }) => {
-
+const Section: FC<SectionProps> = ({
+  section: { name, title, description, article },
+}) => {
   return (
     <section id={name}>
       <article>
-        {name === 'aboutme' ?
+        {name === "aboutme" ? (
           <aside>
             <img src="/images/pd.jpg" alt="Pawel Dworniczak" />
-          </aside> : null
-        }
-        {title &&
-          <header><h2>{title}</h2>
-            {description.content?.map(({ content }) => content ? <span>{(content[0] as Text).value}</span> : "")}
+          </aside>
+        ) : null}
+        {title && (
+          <header>
+            <h2>{title}</h2>
+            {description?.content?.map(({ content }, index) =>
+              content ? (
+                <span key={index}>{(content[0] as Text).value}</span>
+              ) : (
+                ""
+              ),
+            )}
           </header>
-        }
+        )}
         {/* <pre>article</pre> */}
-        {article?.
-          sort(({ fields: jobA }, { fields: jobB }) => jobA && jobB && jobA.startDate > jobB.startDate ? -1 : 1).
-          map(({ fields: jobEntry }) => { return jobEntry ? <Job job={jobEntry} /> : null })}
+        {article
+          ?.sort(({ fields: jobA }, { fields: jobB }) =>
+            jobA && jobB && jobA.startDate > jobB.startDate ? -1 : 1,
+          )
+          .map(({ fields: jobEntry }) => {
+            return jobEntry ? (
+              <Job job={jobEntry} key={jobEntry.startDate} />
+            ) : null;
+          })}
       </article>
-    </section>)
-}
+    </section>
+  );
+};
 
-type CheckClassNameType = { check: any, className: string }
-type ClassNameType = String | CheckClassNameType
+type CheckClassNameType = { check: any; className: string };
+type ClassNameType = String | CheckClassNameType;
 
 const cslsa = (cslsa: ClassNameType[]) => {
-  return cslsa.reduce<string[]>((cnts, cnt) => {
-    if (typeof cnt === 'object' && (cnt as CheckClassNameType).check) {
-      return [...cnts, (cnt as CheckClassNameType).className]
-    } else if (typeof cnt === 'string') {
-      return [...cnts, cnt]
-    }
-    return cnts
-  }, []).join(' ')
-}
+  return cslsa
+    .reduce<string[]>((cnts, cnt) => {
+      if (typeof cnt === "object" && (cnt as CheckClassNameType).check) {
+        return [...cnts, (cnt as CheckClassNameType).className];
+      } else if (typeof cnt === "string") {
+        return [...cnts, cnt];
+      }
+      return cnts;
+    }, [])
+    .join(" ");
+};
 
-export const getStaticProps = (async () => {
+export const getStaticProps = async () => {
   const entrySections = await fetchSectionsEntries();
 
   return {
@@ -145,6 +152,6 @@ export const getStaticProps = (async () => {
       sections: entrySections.items,
     },
   };
-});
+};
 
 export default Home;

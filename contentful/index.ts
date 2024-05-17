@@ -1,16 +1,17 @@
+import 'dotenv/config';
 import { createClient } from "contentful";
 import { TypeSectionSkeleton } from "./types";
 import { assert } from "console";
 
 const space = process.env.CONTENTFUL_SPACE_ID || "";
-const accessToken = process.env.CONTENTFUL_ACCESS_TOKEN || "";
+const accessToken = process.env.CONTENTFUL_DELIVERY_API_ACCESS_TOKEN || "";
 
 assert(space, 'no space');
 assert(accessToken, 'no accessToken');
 
 const client = createClient({
-    space: space,
-    accessToken: accessToken,
+    accessToken,
+    space,
 });
 
 export async function fetchSectionsEntries() {

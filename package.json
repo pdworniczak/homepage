@@ -7,7 +7,7 @@
     "build": "next build && next export",
     "start": "next start",
     "lint": "next lint",
-    "contentful-typescript-codegen": "contentful-typescript-codegen --output contentful/contentful.d.ts"
+    "generate-types": "source .env && cf-content-types-generator -s $CONTENTFUL_SPACE_ID  -t $CONTENTFUL_MANAGEMENT_API_ACCESS_TOKEN -o contentful/types -X"
   },
   "dependencies": {
     "@sentry/nextjs": "^7.107.0",
@@ -24,7 +24,6 @@
     "@types/react": "18.2.79",
     "@types/react-dom": "18.2.25",
     "cf-content-types-generator": "^2.15.0",
-    "contentful-typescript-codegen": "^3.4.0",
     "dotenv": "^16.4.5",
     "eslint": "9.0.0",
     "eslint-config-next": "14.2.2",
