@@ -14,8 +14,8 @@ interface Content {
   sections: TypeSectionSkeleton[];
 }
 const SECTIONS_NAME = {
-  jobs: "Work history",
   aboutme: "About me",
+  jobs: "Work history",
 };
 
 type NavMappingKey = keyof typeof SECTIONS_NAME;
@@ -56,12 +56,14 @@ const Home: NextPage<Content> = ({ sections }) => {
             })}
           </nav>
         </header>
+        {Object.keys(SECTIONS_NAME).map((sectionId) => {
+          const section = sections.find(
+            (section) => section.fields.name === sectionId,
+          );
 
-        {sections.map((section, index) => {
-          // if (sectionTypeGuard(section)) {
-
-          return <Section key={index} section={section.fields} />;
-          // }
+          if (section) {
+            return <Section key={sectionId} section={section.fields} />;
+          }
         })}
 
         <footer>
@@ -113,7 +115,6 @@ const Section: FC<SectionProps> = ({
             )}
           </header>
         )}
-        {/* <pre>article</pre> */}
         {article
           ?.sort(({ fields: jobA }, { fields: jobB }) =>
             jobA && jobB && jobA.startDate > jobB.startDate ? -1 : 1,
