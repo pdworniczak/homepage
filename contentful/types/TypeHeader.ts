@@ -1,4 +1,4 @@
-import type { Entry, EntrySkeletonType, EntryFields } from "contentful";
+import type { Entry, EntryFields, EntrySkeletonType } from "contentful";
 
 export interface TypeHeaderFields {
     title?: EntryFields.Symbol;

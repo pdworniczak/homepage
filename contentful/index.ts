@@ -14,7 +14,7 @@ const client = createClient({
     space,
 });
 
-export async function fetchSectionsEntries() {
+export async function fetchSectionEntries() {
     const entries = await client.getEntries<TypeSectionSkeleton>({ content_type: "section", include: 10 });
     return entries;
 }

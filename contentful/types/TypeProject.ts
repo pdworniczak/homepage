@@ -3,8 +3,8 @@ import type { Entry, EntryFields, EntrySkeletonType } from "contentful";
 export interface TypeProjectFields {
     name?: EntryFields.Symbol;
     description?: EntryFields.Symbol;
-    technologies?: EntryFields.Symbol[];
-    tools?: EntryFields.Symbol[];
+    technologies?: EntryFields.Array<EntryFields.Symbol>;
+    tools?: EntryFields.Array<EntryFields.Symbol>;
     company?: EntryFields.Symbol;
 }
 

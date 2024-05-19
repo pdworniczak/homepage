@@ -2,11 +2,19 @@ import type { NextPage } from "next";
 import { FC } from "react";
 import Head from "next/head";
 import { Job } from "../components/Job";
-import { fetchSectionsEntries } from "../contentful";
-import { TypeSectionFields, TypeSectionSkeleton } from "../contentful/types";
+import { fetchSectionEntries } from "../contentful";
+import {
+  TypeJob,
+  TypeJobFields,
+  TypeJobSkeleton,
+  TypeSectionFields,
+  TypeSectionSkeleton,
+} from "../contentful/types";
 import styles from "../styles/Home.module.scss";
 import Script from "next/script";
 import { Text } from "@contentful/rich-text-types";
+import { EntryFields } from "contentful";
+import { isJob } from "../contentful/typeGuards";
 
 // import jsPDF from "jspdf";
 
@@ -60,12 +68,10 @@ const Home: NextPage<Content> = ({ sections }) => {
           const section = sections.find(
             (section) => section.fields.name === sectionId,
           );
-
           if (section) {
             return <Section key={sectionId} section={section.fields} />;
           }
         })}
-
         <footer>
           {/* <button onClick={() => {
             const doc = new jsPDF('p', 'pt', 'a4');
@@ -92,9 +98,9 @@ interface SectionProps {
   section: TypeSectionFields;
 }
 
-const Section: FC<SectionProps> = ({
-  section: { name, title, description, article },
-}) => {
+const Section: FC<SectionProps> = ({ section }) => {
+  const { name, title, description, articles } = section;
+
   return (
     <section id={name}>
       <article>
@@ -115,15 +121,17 @@ const Section: FC<SectionProps> = ({
             )}
           </header>
         )}
-        {article
-          ?.sort(({ fields: jobA }, { fields: jobB }) =>
-            jobA && jobB && jobA.startDate > jobB.startDate ? -1 : 1,
-          )
-          .map(({ fields: jobEntry }) => {
-            return jobEntry ? (
-              <Job job={jobEntry} key={jobEntry.startDate} />
-            ) : null;
-          })}
+        {articles &&
+          articles
+            .filter(isJob)
+            .sort(({ fields: jobA }, { fields: jobB }) =>
+              jobA && jobB && jobA.startDate > jobB.startDate ? -1 : 1,
+            )
+            .map(({ fields: jobEntry }) => {
+              return jobEntry ? (
+                <Job job={jobEntry} key={jobEntry.startDate} />
+              ) : null;
+            })}
       </article>
     </section>
   );
@@ -146,7 +154,7 @@ const cslsa = (cslsa: ClassNameType[]) => {
 };
 
 export const getStaticProps = async () => {
-  const entrySections = await fetchSectionsEntries();
+  const entrySections = await fetchSectionEntries();
 
   return {
     props: {
