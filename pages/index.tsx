@@ -3,17 +3,10 @@ import { FC } from "react";
 import Head from "next/head";
 import { Job } from "../components/Job";
 import { fetchSectionEntries } from "../contentful";
-import {
-  TypeJob,
-  TypeJobFields,
-  TypeJobSkeleton,
-  TypeSectionFields,
-  TypeSectionSkeleton,
-} from "../contentful/types";
+import { TypeSectionFields, TypeSectionSkeleton } from "../contentful/types";
 import styles from "../styles/Home.module.scss";
 import Script from "next/script";
 import { Text } from "@contentful/rich-text-types";
-import { EntryFields } from "contentful";
 import { isJob } from "../contentful/typeGuards";
 
 // import jsPDF from "jspdf";
@@ -24,6 +17,7 @@ interface Content {
 const SECTIONS_NAME = {
   aboutme: "About me",
   jobs: "Work history",
+  education: "Education",
 };
 
 type NavMappingKey = keyof typeof SECTIONS_NAME;
