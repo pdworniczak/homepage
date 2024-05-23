@@ -5,15 +5,7 @@ import { Project } from "./Project";
 import { TypeJobFields } from "../contentful/types";
 
 export const Job: FC<{ job: TypeJobFields }> = ({
-  job: {
-    companyName,
-    jobTitle,
-    startDate,
-    city,
-    description,
-    endDate,
-    projects,
-  },
+  job: { companyName, jobTitle, startDate, description, endDate, projects },
 }) => {
   const articleRef = useRef<HTMLDivElement>(null);
 

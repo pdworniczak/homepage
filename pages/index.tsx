@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { fetchSectionEntries } from "../contentful";
+import { fetchHomepageEntry, fetchSectionEntries } from "../contentful";
 import { TypeSectionSkeleton } from "../contentful/types";
 import styles from "../styles/Home.module.scss";
 import Script from "next/script";
@@ -44,11 +44,14 @@ const Home: NextPage<Content> = ({ sections }) => {
 };
 
 export const getStaticProps = async () => {
-  const entrySections = await fetchSectionEntries();
+  const sectionEntries = await fetchSectionEntries();
+  const homepageEntry = await fetchHomepageEntry();
+
+  console.log(homepageEntry.items);
 
   return {
     props: {
-      sections: entrySections.items,
+      sections: homepageEntry.items[0].fields.sections,
     },
   };
 };

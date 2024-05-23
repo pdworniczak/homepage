@@ -1,7 +1,8 @@
 import { FC } from "react";
 import { TypeSectionFields } from "../../contentful/types";
-import { isJob } from "../../contentful/typeGuards";
+import { isJobTypeGuard, isSchoolTypeGuard } from "../../contentful/typeGuards";
 import { Job } from "../Job";
+import { School } from "../School";
 
 interface SectionProps {
   section: TypeSectionFields;
@@ -32,7 +33,7 @@ export const Section: FC<SectionProps> = ({ section }) => {
         )}
         {articles &&
           articles
-            .filter(isJob)
+            .filter(isJobTypeGuard)
             .sort(({ fields: jobA }, { fields: jobB }) =>
               jobA && jobB && jobA.startDate > jobB.startDate ? -1 : 1,
             )
@@ -41,6 +42,12 @@ export const Section: FC<SectionProps> = ({ section }) => {
                 <Job job={jobEntry} key={jobEntry.startDate} />
               ) : null;
             })}
+        {articles &&
+          articles.filter(isSchoolTypeGuard).map(({ fields: schoolEntry }) => (
+            <>
+              <School school={schoolEntry} key={schoolEntry.startDate} />
+            </>
+          ))}
       </article>
     </section>
   );
