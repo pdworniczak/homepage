@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import { fetchHomepageEntry, fetchSectionEntries } from "../contentful";
 import { TypeSectionSkeleton } from "../contentful/types";
-import styles from "../styles/Home.module.scss";
+import styles from "./Home.module.scss";
 import Script from "next/script";
 import { Footer, Header, Sections } from "../components";
 

@@ -1,5 +1,5 @@
 import { TypeProjectFields, TypeProjectSkeleton } from "../contentful/types";
-import styles from "./Job.module.scss";
+import styles from "./components.module.scss";
 
 export const Project = ({ project }: { project: TypeProjectFields }) => {
   return (

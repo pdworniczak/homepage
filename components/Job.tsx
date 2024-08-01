@@ -1,8 +1,8 @@
 import { FC, useRef } from "react";
-import styles from "./Job.module.scss";
-import dayjs from "dayjs";
+import styles from "./components.module.scss";
 import { Project } from "./Project";
 import { TypeJobFields } from "../contentful/types";
+import { TimePeriod } from "./TimePeriod";
 
 export const Job: FC<{ job: TypeJobFields }> = ({
   job: { companyName, jobTitle, startDate, description, endDate, projects },
@@ -17,11 +17,7 @@ export const Job: FC<{ job: TypeJobFields }> = ({
         <h4>{companyName}</h4>
       </header>
       <article>
-        <section>
-          <span>{endDate ? dayjs(endDate).format("YYYY MMM") : "present"}</span>
-          <span>{" - "}</span>
-          <span>{dayjs(startDate).format("YYYY MMM")}</span>
-        </section>
+        <TimePeriod startDate={startDate} endDate={endDate} />
         {description ? <section>{description}</section> : null}
         <section>
           {projects && (

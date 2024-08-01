@@ -13,7 +13,7 @@ export interface TypeSchoolFields {
   name: EntryFields.Symbol;
   description?: EntryFields.Text;
   type: EntryFields.Symbol<SchoolType>;
-  startDate?: EntryFields.Date;
+  startDate: EntryFields.Date;
   endDate: EntryFields.Date;
   location?: EntryFields.Symbol;
 }

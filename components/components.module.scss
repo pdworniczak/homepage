@@ -1,0 +1,88 @@
+.job {
+  display: flex;
+  flex-direction: column;
+
+  > header {
+    display: flex;
+    gap: 2em;
+
+    img {
+      align-self: center;
+    }
+  }
+
+  > article {
+    display: flex;
+    flex-direction: row;
+    gap: 2em;
+  }
+}
+
+.education {
+  display: flex;
+  flex-direction: row;
+
+  section:nth-of-type(2) {
+    text-align: left;
+    line-height: 1.5em;
+  }
+
+  hr {
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 1) 0%,
+      rgba(0, 0, 0, 1) 50%,
+      rgba(255, 255, 255, 1) 100%
+    );
+    border: 0;
+    height: 1px;
+  }
+}
+
+.project {
+  padding-bottom: 2em;
+
+  > header {
+    h5 {
+      margin-top: 0;
+    }
+  }
+
+  > section:first-of-type {
+    margin-bottom: 1em;
+  }
+
+  section {
+    > span {
+      display: flex;
+      flex-wrap: wrap;
+      font-size: 0.9em;
+      font-style: italic;
+      gap: 0.5em;
+    }
+  }
+}
+
+.timePeriod {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  &Vertical {
+    flex-direction: column;
+    width: 3em;
+    > span {
+      transform: rotate(-15deg);
+      font-style: italic;
+    }
+  }
+
+  &Horizontal {
+    flex-direction: row;
+    flex-shrink: 0;
+    width: 12em;
+    > span {
+      font-style: italic;
+    }
+  }
+}
