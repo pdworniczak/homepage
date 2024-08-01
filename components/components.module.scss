@@ -21,6 +21,8 @@
 .education {
   display: flex;
   flex-direction: row;
+  align-items: center;
+  gap:1em;
 
   section:nth-of-type(2) {
     text-align: left;
@@ -72,7 +74,7 @@
     flex-direction: column;
     width: 3em;
     > span {
-      transform: rotate(-15deg);
+      transform: rotate(-5deg);
       font-style: italic;
     }
   }
@@ -80,7 +82,7 @@
   &Horizontal {
     flex-direction: row;
     flex-shrink: 0;
-    width: 12em;
+    width: 9em;
     > span {
       font-style: italic;
     }

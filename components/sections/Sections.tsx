@@ -1,4 +1,4 @@
-import { TypeSectionFields, TypeSectionSkeleton } from "../../contentful/types";
+import { TypeSectionSkeleton } from "../../contentful/types";
 import { SECTIONS_NAME } from "../../types";
 import { Section } from "./Section";
 

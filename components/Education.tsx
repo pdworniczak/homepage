@@ -10,12 +10,21 @@ export const Education = ({ school }: { school: TypeSchoolFields }) => (
         endDate={school.endDate}
         orientation="horizontal"
       />
-      <section>
-        <header>{school.name}</header>
-        <p>{school.description}</p>
-        {/* {school.name} */}
-      </section>
+      <Type type={school.type} />
+      <SchoolDescription school={school} />
     </article>
     <hr />
   </>
 );
+
+const Type = ({ type }: {type: SchoolType}) => (
+  <img src={`/icons/${type}.svg`} width={26} height={26} />
+)
+
+const SchoolDescription = ({school}: {school: TypeSchoolFields}) => (
+  <section>
+  <header><h4>{school.name}</h4></header>
+  { school.description ? <p>{school.description}</p> : null }
+</section>
+)
+

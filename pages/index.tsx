@@ -10,6 +10,8 @@ interface Content {
   sections: TypeSectionSkeleton[];
 }
 
+const GTAG_CONFIG = process.env.GTAG_CONFIG;
+
 const Home: NextPage<Content> = ({ sections }) => {
   return (
     <>
@@ -18,22 +20,7 @@ const Home: NextPage<Content> = ({ sections }) => {
         <meta name="description" content="personal home page" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Script
-        id="gtm"
-        async
-        src="https://www.googletagmanager.com/gtag/js?id=G-P5342HRQQJ"
-      />
-      <Script
-        id="dl"
-        dangerouslySetInnerHTML={{
-          __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-P5342HRQQJ');
-            `,
-        }}
-      />
+      <Scripts />
       <main className={styles.main}>
         <Header sections={sections} />
         <Sections sections={sections} />
@@ -44,10 +31,7 @@ const Home: NextPage<Content> = ({ sections }) => {
 };
 
 export const getStaticProps = async () => {
-  const sectionEntries = await fetchSectionEntries();
   const homepageEntry = await fetchHomepageEntry();
-
-  console.log(homepageEntry.items);
 
   return {
     props: {
@@ -57,3 +41,25 @@ export const getStaticProps = async () => {
 };
 
 export default Home;
+
+
+const Scripts = () => (
+<>
+  <Script
+        id="gtm"
+        async
+        src={`https://www.googletagmanager.com/gtag/js?id=${GTAG_CONFIG}`}
+      />
+      <Script
+        id="dl"
+        dangerouslySetInnerHTML={{
+          __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', ${GTAG_CONFIG});
+            `,
+        }}
+      />
+</>
+)

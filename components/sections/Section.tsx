@@ -32,16 +32,16 @@ export const Section: FC<SectionProps> = ({ section }) => {
           .sort(({ fields: jobA }, { fields: jobB }) =>
             jobA && jobB && jobA.startDate > jobB.startDate ? -1 : 1,
           )
-          .map(({ fields: jobEntry }) => {
+          .map(({ fields: jobEntry }, index) => {
             return jobEntry ? (
-              <Job job={jobEntry} key={jobEntry.startDate} />
+              <Job job={jobEntry} key={index} />
             ) : null;
           })}
       {articles &&
         articles
           .filter(isSchoolTypeGuard)
-          .map(({ fields: schoolEntry }) => (
-            <Education school={schoolEntry} key={schoolEntry.startDate} />
+          .map(({ fields: schoolEntry }, index) => (
+            <Education school={schoolEntry} key={index} />
           ))}
     </section>
   );

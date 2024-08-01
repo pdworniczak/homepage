@@ -12,7 +12,7 @@ export const Job: FC<{ job: TypeJobFields }> = ({
   return (
     <article ref={articleRef} className={styles.job}>
       <header>
-        <img src="/icons/laptop-svgrepo-com.svg" width={26} height={26} />
+        <img src="/icons/work.svg" width={26} height={26} />
         <h3>{jobTitle}</h3>
         <h4>{companyName}</h4>
       </header>
