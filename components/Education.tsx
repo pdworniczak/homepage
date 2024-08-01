@@ -1,4 +1,5 @@
 import { TypeSchoolFields } from "../contentful/types";
+import { SchoolType } from "../contentful/types/TypeSchool";
 import { TimePeriod } from "./TimePeriod";
 import styles from "./components.module.scss";
 

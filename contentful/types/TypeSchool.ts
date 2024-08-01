@@ -7,7 +7,7 @@ export const SCHOOL_TYPE = [
   "training",
   "university",
 ];
-type SchoolType = (typeof SCHOOL_TYPE)[number];
+export type SchoolType = (typeof SCHOOL_TYPE)[number];
 
 export interface TypeSchoolFields {
   name: EntryFields.Symbol;
