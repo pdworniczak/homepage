@@ -22,7 +22,7 @@ export const Section: FC<SectionProps> = ({ section }) => {
         <header>
           <h2>{title}</h2>
           {description?.content?.map(({ content }, index) =>
-            content ? <span key={index}>{content[0].value}</span> : "",
+            content ? <span key={index}>{(content[0] as any).value}</span> : "",
           )}
         </header>
       )}
