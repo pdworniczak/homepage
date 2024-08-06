@@ -1,6 +1,22 @@
 $SHADOW: rgba(170, 170, 170, 0.5);
-$PRIMARY_COLOR: rgb(240, 201, 184);//rgb(116, 115, 51);
-$SECONDARY_COLOR: rgba(187, 175, 187);//rgb(49, 51, 35);
+// $PRIMARY_COLOR: rgb(240, 201, 184);
+// $SECONDARY_COLOR: rgba(187, 175, 187);
+// $SECONDARY_COLORR: rgb(116, 115, 51);//rgb(49, 51, 35);
+
+// $PRIMARY_COLOR: #AEB5BF;
+// $PRIMARY_COLOR :#CA6F40;
+$PRIMARY_COLOR :#2E6287;
+$SECONDARY_COLOR :#25375f;
+$BACKGROUD_COLOR: cadetblue;
+
+$PRIMARY_TEXT_COLOR: #D4A86A;
+//$PRIMARY_COLOR :#000101;
+
+$BACKGROUD_SHADOW_SIZE: 20px;
+
+#background {
+  background-color: $BACKGROUD_COLOR;
+}
 
 .main {
   display: flex;
@@ -8,7 +24,9 @@ $SECONDARY_COLOR: rgba(187, 175, 187);//rgb(49, 51, 35);
   justify-content: center;
   margin: auto;
   max-width: 794px;
-  box-shadow: 10px 10px 10px $SHADOW, -5px -5px 5px $SHADOW;
+  box-shadow: $BACKGROUD_SHADOW_SIZE $BACKGROUD_SHADOW_SIZE $BACKGROUD_SHADOW_SIZE $SHADOW, -5px -5px 5px $SHADOW;
+  color: $PRIMARY_TEXT_COLOR;
+  background-color: $PRIMARY_COLOR;
 
   >header {
     display: flex;
@@ -42,5 +60,17 @@ $SECONDARY_COLOR: rgba(187, 175, 187);//rgb(49, 51, 35);
       border: solid 5px $PRIMARY_COLOR;
       border-radius: 5px;
     }
+  }
+
+  & hr {
+    background: linear-gradient(
+      90deg,
+      rgba($PRIMARY_COLOR, 1) 0%,
+      rgba($SECONDARY_COLOR, 1) 30%,
+      rgba($SECONDARY_COLOR, 1) 70%,
+      rgba($PRIMARY_COLOR, 1) 100%
+    );
+    border: 0;
+    height: 2px;
   }
 }

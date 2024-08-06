@@ -27,3 +27,7 @@ h5 {
 h6 {
   margin: .5em 0
 }
+
+#__next {
+  background-color: cadetblue;
+}

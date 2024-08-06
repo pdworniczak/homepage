@@ -28,17 +28,6 @@
     text-align: left;
     line-height: 1.5em;
   }
-
-  hr {
-    background: linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 1) 0%,
-      rgba(0, 0, 0, 1) 50%,
-      rgba(255, 255, 255, 1) 100%
-    );
-    border: 0;
-    height: 1px;
-  }
 }
 
 .project {
@@ -74,7 +63,6 @@
     flex-direction: column;
     width: 3em;
     > span {
-      transform: rotate(-5deg);
       font-style: italic;
     }
   }
