@@ -1,15 +1,14 @@
 import type { ChainModifiers, Entry, EntryFieldTypes, EntrySkeletonType, LocaleCode } from "contentful";
-import { DegreeType, SchoolType } from "./types";
-
+import { SchoolType } from "./types";
 
 export interface TypeSchoolFields {
-    name: string;
-    description?: string;
-    type: SchoolType;
-    startDate?: Date;
-    endDate: Date;
-    location?: string;
-    degree?: DegreeType;
+    name: EntryFieldTypes.Symbol;
+    description?: EntryFieldTypes.Text;
+    type: EntryFieldTypes.Symbol<SchoolType>;
+    startDate?: EntryFieldTypes.Date;
+    endDate: EntryFieldTypes.Date;
+    location?: EntryFieldTypes.Symbol;
+    degree?: EntryFieldTypes.Symbol<"bechelor" | "doctor" | "engineer" | "licence" | "master">;
 }
 
 export type TypeSchoolSkeleton = EntrySkeletonType<TypeSchoolFields, "school">;

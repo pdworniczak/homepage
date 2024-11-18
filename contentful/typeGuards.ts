@@ -1,17 +1,18 @@
 import {
-  SCHOOL_TYPE,
-  TypeJobSkeleton,
-  TypeSchoolSkeleton,
-  TypeSectionSkeleton,
+  SchoolEntry,
+  SectionEntry,
+  JobEntry,
 } from "./types";
 
-type Article = TypeJobSkeleton | TypeSchoolSkeleton;
+type Article = SchoolEntry | SectionEntry | JobEntry;
 
-export const isSectionTypeGuard = (ob: any): ob is TypeSectionSkeleton => true;
-export const isJobTypeGuard = (ob: Article): ob is TypeJobSkeleton =>
-  (ob as TypeJobSkeleton).fields?.companyName !== undefined;
-export const isSchoolTypeGuard = (ob: Article): ob is TypeSchoolSkeleton =>
-  (ob as TypeSchoolSkeleton).fields.type !== undefined &&
+export const isSectionTypeGuard = (ob: any): ob is SectionEntry => true;
+
+export const isJobTypeGuard = (ob: Article): ob is JobEntry =>
+  (ob as JobEntry).fields?.companyName !== undefined;
+
+export const isSchoolTypeGuard = (ob: Article): ob is SchoolEntry =>
+  (ob as SchoolEntry).fields.type !== undefined &&
   ["academy", "course", "highschool", "training", "university"].includes(
-    (ob as TypeSchoolSkeleton).fields.type,
+    (ob as SchoolEntry).fields.type,
   );

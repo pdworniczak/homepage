@@ -1,8 +1,7 @@
-import { TypeSectionSkeleton } from "../contentful/types";
-import { NavMappingKey, SECTIONS_NAME } from "../types";
+import { SectionEntry, SECTIONS_CONFIG } from "../contentful/types";
 
 interface HeaderProps {
-  sections: TypeSectionSkeleton[];
+  sections: SectionEntry[];
 }
 
 export const Header = ({ sections }: HeaderProps) => (
@@ -11,7 +10,7 @@ export const Header = ({ sections }: HeaderProps) => (
       {sections.map(({ fields: { name } }, index) => {
         return (
           <a key={index} href={`#${name}`}>
-            {SECTIONS_NAME[name.toString() as NavMappingKey]}
+            {/* {SECTIONS_CONFIG.find(config => config.id === name)} */}
           </a>
         );
       })}

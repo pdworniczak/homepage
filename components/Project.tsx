@@ -1,26 +1,26 @@
-import { TypeProjectFields, TypeProjectSkeleton } from "../contentful/types";
+import { ProjectEntry } from "../contentful/types";
 import styles from "./components.module.scss";
 
-export const Project = ({ project }: { project: TypeProjectFields }) => {
+export const Project = ({ project: {fields: {name, description, technologies, tools}} }: { project: ProjectEntry }) => {
   return (
     <>
       <article className={styles.project}>
         <header>
-          <h5>{project.name}</h5>
+          <h5>{name}</h5>
         </header>
-        <section>{project.description}</section>
+        <section>{description}</section>
         <section>
           <header>
             <h6>Tools and technologies:</h6>
           </header>
           <span>
-            {project.technologies
-              ? project.technologies.map((technology, index) => (
+            {technologies
+              ? technologies.map((technology, index) => (
                 <span key={`tech_${index}`}>{technology}</span>
               ))
               : ""}
-            {project.tools
-              ? project.tools.map((tool, index) => (
+            {tools
+              ? tools.map((tool, index) => (
                 <span key={`tool_${index}`}>{tool}</span>
               ))
               : ""}

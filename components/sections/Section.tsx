@@ -1,18 +1,17 @@
 import { FC } from "react";
-import { TypeSectionFields } from "../../contentful/types";
+import { SectionEntry } from "../../contentful/types";
 import { isJobTypeGuard, isSchoolTypeGuard } from "../../contentful/typeGuards";
 import { Job } from "../Job";
 import { Education } from "../Education";
-import { documentToPlainTextString } from "@contentful/rich-text-plain-text-renderer";
 import { } from 'contentful'
-import { Block } from "@contentful/rich-text-types";
+import { documentToPlainTextString } from "@contentful/rich-text-plain-text-renderer";
 
 interface SectionProps {
-  section: TypeSectionFields;
+  section: SectionEntry;
 }
 
 export const Section: FC<SectionProps> = ({ section }) => {
-  const { name, title, description, articles } = section;
+  const { name, title, description, articles } = section.fields;
 
   return (
     <section id={name}>
@@ -24,7 +23,6 @@ export const Section: FC<SectionProps> = ({ section }) => {
       {title && (
         <header>
           <h2>{title}</h2>
-          {JSON.stringify(description)}
           {description && <span>{documentToPlainTextString(description)}</span>}
         </header>
       )}
@@ -34,9 +32,9 @@ export const Section: FC<SectionProps> = ({ section }) => {
           .sort(({ fields: jobA }, { fields: jobB }) =>
             jobA && jobB && jobA.startDate > jobB.startDate ? -1 : 1,
           )
-          .map(({ fields: jobEntry }, index) => {
-            return jobEntry ? (
-              <Job job={jobEntry} key={index} />
+          .map((job, index) => {
+            return job ? (
+              <Job job={job} key={index} />
             ) : null;
           })}
       {articles &&

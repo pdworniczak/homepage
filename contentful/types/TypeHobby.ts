@@ -1,10 +1,9 @@
 import type { ChainModifiers, Entry, EntryFieldTypes, EntrySkeletonType, LocaleCode } from "contentful";
-import { HobbyType } from "./types";
 
 export interface TypeHobbyFields {
     name: EntryFieldTypes.Symbol;
     description?: EntryFieldTypes.RichText;
-    type: EntryFieldTypes.Symbol<HobbyType>;
+    type: EntryFieldTypes.Symbol<"entertainment" | "science" | "sport" | "technology">;
 }
 
 export type TypeHobbySkeleton = EntrySkeletonType<TypeHobbyFields, "hobby">;

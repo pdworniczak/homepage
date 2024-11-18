@@ -1,16 +1,14 @@
 import { FC, useRef } from "react";
 import styles from "./components.module.scss";
 import { Project } from "./Project";
-import { TypeJobFields } from "../contentful/types";
+import { JobEntry, ProjectEntry } from "../contentful/types";
 import { TimePeriod } from "./TimePeriod";
 
-export const Job: FC<{ job: TypeJobFields }> = ({
-  job: { companyName, jobTitle, startDate, description, endDate, projects },
-}) => {
-  const articleRef = useRef<HTMLDivElement>(null);
+export const Job: FC<{ job: JobEntry }> = ({ job }) => {
+  const { fields: { companyName, jobTitle, startDate, description, endDate, projects }} = job;
 
   return (
-    <article ref={articleRef} className={styles.job}>
+    <article className={styles.job}>
       <header>
         <img src="/icons/work.svg" width={26} height={26} />
         <h3>{jobTitle}</h3>
@@ -22,8 +20,8 @@ export const Job: FC<{ job: TypeJobFields }> = ({
         <section>
           {projects && (
             <>
-              {projects.map(({ fields: project }, index) => (
-                <Project key={`${index}`} project={project} />
+              {projects.map((project, index) => (
+                <Project key={`${index}`} project={project as ProjectEntry} />
               ))}
             </>
           )}
