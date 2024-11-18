@@ -3,6 +3,9 @@ import { TypeSectionFields } from "../../contentful/types";
 import { isJobTypeGuard, isSchoolTypeGuard } from "../../contentful/typeGuards";
 import { Job } from "../Job";
 import { Education } from "../Education";
+import { documentToPlainTextString } from "@contentful/rich-text-plain-text-renderer";
+import { } from 'contentful'
+import { Block } from "@contentful/rich-text-types";
 
 interface SectionProps {
   section: TypeSectionFields;
@@ -21,9 +24,8 @@ export const Section: FC<SectionProps> = ({ section }) => {
       {title && (
         <header>
           <h2>{title}</h2>
-          {description?.content?.map(({ content }, index) =>
-            content ? <span key={index}>{(content[0] as any).value}</span> : "",
-          )}
+          {JSON.stringify(description)}
+          {description && <span>{documentToPlainTextString(description)}</span>}
         </header>
       )}
       {articles &&
@@ -44,5 +46,6 @@ export const Section: FC<SectionProps> = ({ section }) => {
             <Education school={schoolEntry} key={index} />
           ))}
     </section>
+    // <div>test</div>
   );
 };

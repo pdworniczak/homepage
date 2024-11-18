@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { fetchHomepageEntry, fetchSectionEntries } from "../contentful";
+import { fetchHomepageEntry } from "../contentful";
 import { TypeSectionSkeleton } from "../contentful/types";
 import styles from "./Home.module.scss";
 import Script from "next/script";
@@ -44,22 +44,22 @@ export default Home;
 
 
 const Scripts = () => (
-<>
-  <Script
-        id="gtm"
-        async
-        src={`https://www.googletagmanager.com/gtag/js?id=${GTAG_CONFIG}`}
-      />
-      <Script
-        id="dl"
-        dangerouslySetInnerHTML={{
-          __html: `
+  <>
+    <Script
+      id="gtm"
+      async
+      src={`https://www.googletagmanager.com/gtag/js?id=${GTAG_CONFIG}`}
+    />
+    <Script
+      id="dl"
+      dangerouslySetInnerHTML={{
+        __html: `
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
               gtag('config', ${GTAG_CONFIG});
             `,
-        }}
-      />
-</>
+      }}
+    />
+  </>
 )

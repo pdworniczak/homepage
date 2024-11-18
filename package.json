@@ -10,6 +10,8 @@
     "generate-types": "source .env && cf-content-types-generator -s $CONTENTFUL_SPACE_ID  -t $CONTENTFUL_MANAGEMENT_API_ACCESS_TOKEN -o contentful/types -X"
   },
   "dependencies": {
+    "@contentful/rich-text-plain-text-renderer": "^17.0.0",
+    "@contentful/rich-text-types": "^17.0.0",
     "contentful": "^10.8.3",
     "dayjs": "^1.11.10",
     "jspdf": "^2.5.1",

@@ -1,9 +1,8 @@
-import type { Entry, EntryFields, EntrySkeletonType } from "contentful";
+import type { ChainModifiers, Entry, EntryFieldTypes, EntrySkeletonType, LocaleCode } from "contentful";
 
 export interface TypeHeaderFields {
-    title?: EntryFields.Symbol;
+    title?: EntryFieldTypes.Symbol;
 }
 
-export type TypeHeaderSkeleton = EntrySkeletonType<TypeHeaderFields, 'header'>;
-
-export type TypeHeader = Entry<TypeHeaderSkeleton>;
+export type TypeHeaderSkeleton = EntrySkeletonType<TypeHeaderFields, "header">;
+export type TypeHeader<Modifiers extends ChainModifiers, Locales extends LocaleCode = LocaleCode> = Entry<TypeHeaderSkeleton, Modifiers, Locales>;

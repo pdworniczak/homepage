@@ -1,14 +1,23 @@
-import type { Entry, EntryFields, EntrySkeletonType } from "contentful";
+import type { ChainModifiers, Entry, EntryFieldTypes, EntrySkeletonType, LocaleCode } from "contentful";
+import type { TypeHobbySkeleton } from "./TypeHobby";
 import type { TypeJobSkeleton } from "./TypeJob";
 import type { TypeSchoolSkeleton } from "./TypeSchool";
 
+// export interface TypeSectionFields {
+//     name: EntryFieldTypes.Text;
+//     title?: EntryFieldTypes.Text;
+//     description?: EntryFieldTypes.RichText;
+//     articles?: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<TypeHobbySkeleton | TypeJobSkeleton | TypeSchoolSkeleton>>;
+//     images?: EntryFieldTypes.Array<EntryFieldTypes.AssetLink>;
+// }
+
 export interface TypeSectionFields {
-    name: EntryFields.Symbol;
-    title?: EntryFields.Symbol;
-    description?: EntryFields.RichText;
-    articles?: Array<TypeJobSkeleton | TypeSchoolSkeleton>;
+    name: string;
+    title?: string;
+    description?: EntryFieldTypes.RichText;
+    articles?: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<TypeHobbySkeleton | TypeJobSkeleton | TypeSchoolSkeleton>>;
+    images?: EntryFieldTypes.Array<EntryFieldTypes.AssetLink>;
 }
 
-export type TypeSectionSkeleton = EntrySkeletonType<TypeSectionFields, 'section'>;
-
-export type TypeSection = Entry<TypeSectionSkeleton>;
+export type TypeSectionSkeleton = EntrySkeletonType<TypeSectionFields, "section">;
+export type TypeSection<Modifiers extends ChainModifiers, Locales extends LocaleCode = LocaleCode> = Entry<TypeSectionSkeleton, Modifiers, Locales>;
