@@ -1,31 +1,38 @@
-import { TypeSchoolFields } from "../contentful/types";
-import { SchoolType } from "../contentful/types/TypeSchool";
+import { SchoolEntry, SchoolType } from "../contentful/types";
 import { TimePeriod } from "./TimePeriod";
 import styles from "./components.module.scss";
 
-export const Education = ({ school }: { school: TypeSchoolFields }) => (
-  <>
-    <article className={styles.education}>
-      <TimePeriod
-        startDate={school.startDate}
-        endDate={school.endDate}
-        orientation="horizontal"
-      />
-      <Type type={school.type} />
-      <SchoolDescription school={school} />
-    </article>
-    <hr />
-  </>
-);
+interface EducationProps {
+  school: SchoolEntry
+}
 
-const Type = ({ type }: {type: SchoolType}) => (
+export const Education = ({ school }: EducationProps) => {
+  const { fields: { startDate, endDate, type } } = school
+
+  return (
+    <>
+      <article className={styles.education}>
+        {startDate && endDate && <TimePeriod
+          startDate={startDate}
+          endDate={endDate}
+          orientation="horizontal"
+        />}
+        <Type type={type} />
+        <SchoolDescription school={school} />
+      </article>
+      <hr />
+    </>
+  )
+};
+
+const Type = ({ type }: { type: SchoolType }) => (
   <img src={`/icons/${type}.svg`} width={26} height={26} />
 )
 
-const SchoolDescription = ({school}: {school: TypeSchoolFields}) => (
+const SchoolDescription = ({ school: { fields: school } }: EducationProps) => (
   <section>
-  <header><h4>{school.name}</h4></header>
-  { school.description ? <p>{school.description}</p> : null }
-</section>
+    <header><h4>{school.name}</h4></header>
+    {school.description ? <p>{school.description}</p> : null}
+  </section>
 )
 

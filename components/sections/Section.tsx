@@ -40,8 +40,8 @@ export const Section: FC<SectionProps> = ({ section }) => {
       {articles &&
         articles
           .filter(isSchoolTypeGuard)
-          .map(({ fields: schoolEntry }, index) => (
-            <Education school={schoolEntry} key={index} />
+          .map((school, index) => (
+            <Education school={school} key={index} />
           ))}
     </section>
     // <div>test</div>

@@ -1,5 +1,5 @@
 import type { ChainModifiers, Entry, EntryFieldTypes, EntrySkeletonType, LocaleCode } from "contentful";
-import { SchoolType } from "./types";
+import { SchoolType } from ".";
 
 export interface TypeSchoolFields {
     name: EntryFieldTypes.Symbol;

@@ -2,17 +2,18 @@ import {
   SchoolEntry,
   SectionEntry,
   JobEntry,
+  SCHOOL_TYPE,
 } from "./types";
 
-type Article = SchoolEntry | SectionEntry | JobEntry;
+export type Article = SchoolEntry | SectionEntry | JobEntry;
 
-export const isSectionTypeGuard = (ob: any): ob is SectionEntry => true;
+export const isSectionTypeGuard = (article: Article): article is SectionEntry => true;
 
-export const isJobTypeGuard = (ob: Article): ob is JobEntry =>
-  (ob as JobEntry).fields?.companyName !== undefined;
+export const isJobTypeGuard = (article: Article): article is JobEntry =>
+  (article as JobEntry).fields?.companyName !== undefined;
 
-export const isSchoolTypeGuard = (ob: Article): ob is SchoolEntry =>
-  (ob as SchoolEntry).fields.type !== undefined &&
-  ["academy", "course", "highschool", "training", "university"].includes(
-    (ob as SchoolEntry).fields.type,
+export const isSchoolTypeGuard = (article: Article): article is SchoolEntry =>
+  (article as SchoolEntry).fields.type !== undefined &&
+  SCHOOL_TYPE.includes(
+    (article as SchoolEntry).fields.type,
   );
