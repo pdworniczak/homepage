@@ -3,16 +3,15 @@ import {
   SectionEntry,
   JobEntry,
   SCHOOL_TYPE,
+  Article,
 } from "./types";
-
-export type Article = SchoolEntry | SectionEntry | JobEntry;
 
 export const isSectionTypeGuard = (article: Article): article is SectionEntry => true;
 
-export const isJobTypeGuard = (article: Article): article is JobEntry =>
+export const isJobTypeGuard = (article: any): article is JobEntry =>
   (article as JobEntry).fields?.companyName !== undefined;
 
-export const isSchoolTypeGuard = (article: Article): article is SchoolEntry =>
+export const isSchoolTypeGuard = (article: any): article is SchoolEntry =>
   (article as SchoolEntry).fields.type !== undefined &&
   SCHOOL_TYPE.includes(
     (article as SchoolEntry).fields.type,

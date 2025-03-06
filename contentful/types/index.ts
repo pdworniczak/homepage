@@ -1,4 +1,4 @@
-import { Entry } from "contentful"
+import { Entry, UnresolvedLink } from "contentful"
 import { TypeSectionSkeleton } from "./TypeSection";
 import { TypeSchoolSkeleton } from "./TypeSchool";
 import { TypeJobSkeleton } from "./TypeJob";
@@ -16,6 +16,9 @@ export type SectionEntry = Entry<TypeSectionSkeleton, undefined>
 export type SchoolEntry = Entry<TypeSchoolSkeleton, undefined>
 export type JobEntry = Entry<TypeJobSkeleton, undefined>
 export type ProjectEntry = Entry<TypeProjectSkeleton, undefined>
+
+
+export type Article = UnresolvedLink<"Entry"> | SchoolEntry | SectionEntry | JobEntry;
 
 export const SCHOOL_TYPE = [
     "academy",
@@ -40,11 +43,11 @@ interface SectionConfig {
     id: string
     name: string
 }
-  
+
 export const SECTIONS_CONFIG: SectionConfig[] = [
     { id: 'aboutme', name: "About me" },
     { id: 'jobs', name: "Work history" },
     { id: 'education', name: "Education" }
 ]
-  
+
 export type NavMappingKey = keyof typeof SECTIONS_CONFIG;

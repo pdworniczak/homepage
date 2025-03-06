@@ -1,13 +1,13 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import { fetchHomepageEntry } from "../contentful";
-import { TypeSectionSkeleton } from "../contentful/types";
+import { SectionEntry } from "../contentful/types";
 import styles from "./Home.module.scss";
 import Script from "next/script";
 import { Footer, Header, Sections } from "../components";
 
 interface Content {
-  sections: TypeSectionSkeleton[];
+  sections: SectionEntry[];
 }
 
 const GTAG_CONFIG = process.env.GTAG_CONFIG;

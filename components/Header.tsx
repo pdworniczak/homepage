@@ -7,13 +7,6 @@ interface HeaderProps {
 export const Header = ({ sections }: HeaderProps) => (
   <header>
     <nav>
-      {sections.map(({ fields: { name } }, index) => {
-        return (
-          <a key={index} href={`#${name}`}>
-            {/* {SECTIONS_CONFIG.find(config => config.id === name)} */}
-          </a>
-        );
-      })}
     </nav>
   </header>
 );

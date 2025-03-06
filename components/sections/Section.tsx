@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { SectionEntry } from "../../contentful/types";
+import { SectionEntry, TypeSectionSkeleton } from "../../contentful/types";
 import { isJobTypeGuard, isSchoolTypeGuard } from "../../contentful/typeGuards";
 import { Job } from "../Job";
 import { Education } from "../Education";
@@ -44,6 +44,5 @@ export const Section: FC<SectionProps> = ({ section }) => {
             <Education school={school} key={index} />
           ))}
     </section>
-    // <div>test</div>
   );
 };

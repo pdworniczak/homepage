@@ -23,10 +23,11 @@ export async function fetchSectionEntries() {
 }
 
 export async function fetchHomepageEntry() {
-  const entries = await client.getEntries<TypeHomepageSkeleton>({
+  const entries = await client.withoutUnresolvableLinks.getEntries<TypeHomepageSkeleton>({
     content_type: "homepage",
     include: 10,
   });
+
   return entries;
 }
 

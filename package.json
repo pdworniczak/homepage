@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "generate-types": "source .env && cf-content-types-generator -s $CONTENTFUL_SPACE_ID  -t $CONTENTFUL_MANAGEMENT_API_ACCESS_TOKEN -o contentful/types -X"
+    "generate-types": "source .env && cf-content-types-generator -s $CONTENTFUL_SPACE_ID  -t $CONTENTFUL_MANAGEMENT_API_ACCESS_TOKEN -o contentful/types -X -g"
   },
   "dependencies": {
     "@contentful/rich-text-plain-text-renderer": "^17.0.0",
